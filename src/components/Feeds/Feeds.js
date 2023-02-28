@@ -1,4 +1,5 @@
 import { SparklesIcon } from "@heroicons/react/24/outline";
+import Input from "../Input/Input";
 
 
 export default function Feeds() {
@@ -12,7 +13,7 @@ export default function Feeds() {
                 </div>
             </div>
 
-            
+            <Input />
         </div>
     )
 }

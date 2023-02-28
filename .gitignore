@@ -35,3 +35,6 @@ package-lock.json
 
 # My Local Files
 instructions.txt
+
+# VS Code Settings
+.vscode
