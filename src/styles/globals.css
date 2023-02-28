@@ -5,6 +5,7 @@
 @layer base {
   body {
     @apply bg-black;
+    -webkit-tap-highlight-color: transparent;
   }
 }
 

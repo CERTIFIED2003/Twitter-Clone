@@ -26,9 +26,12 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # local env files
-.env*.local
+/vars
 
 # vercel
 .vercel
 .vscode/settings.json
 package-lock.json
+
+# My Local Files
+instructions.txt
