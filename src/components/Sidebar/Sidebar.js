@@ -43,7 +43,7 @@ export default function Sidebar() {
         <img
           src="https://tclone.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FtwitterLogo.a7720ee1.png&w=64&q=75"
           alt="Profile"
-          className="h-5 w-5 md:h-8 md:w-8 rounded-full xl:mr-2.5"
+          className="h-5 w-5 md:h-8 md:w-8 rounded-full xl:mr-2.5 object-contain"
         />
         <div className="hidden xl:inline leading-5">
           <h4 className="font-bold text-ellipsis">Shubham Lal</h4>
