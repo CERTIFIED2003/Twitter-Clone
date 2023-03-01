@@ -12,6 +12,18 @@ export default function Input() {
 
     };
 
+    const handleEmoji = (e) => {
+        let sym = e.unified.split("-");
+        let codesArray = [];
+        sym.forEach((el) => codesArray.push("0x" + el));
+        let emoji = String.fromCodePoint(...codesArray);
+        setText(text + emoji);
+    };
+
+    const handleSubmitPost = () => {
+
+    };
+
     return (
         <div className={`border-b border-gray-700 p-3 flex space-x-3 overflow-y-scroll`} style={{ overflow: "hidden" }}>
             <img
@@ -20,7 +32,7 @@ export default function Input() {
                 className="h-10 w-10 rounded-full cursor-pointer"
             />
             <div className="w-full divide-y divide-gray-700">
-                <div className={``}>
+                <div className={`${file && "pb-7"} ${text && "space-y-2.5"}`}>
                     <textarea
                         value={text}
                         onChange={(e) => setText(e.target.value)}
@@ -64,11 +76,22 @@ export default function Input() {
                         </div>
 
                         {showEmojis && (
-                            <Picker 
-                                theme="dark"
-                            />
+                            <div className="absolute mt-[467px] -ml-10">
+                                <Picker
+                                    onEmojiClick={handleEmoji}
+                                    theme="dark"
+                                    width={300}
+                                />
+                            </div>
                         )}
                     </div>
+                    <button
+                        className="bg-[#1DA1F2] text-white rounded-full px-4 py-1.5 font-bold shadow-md hover:bg-white hover:text-[#1DA1F2] transition-all duration-300 ease-out disabled:opacity-50 disabled:cursor-not-allowed"
+                        disabled={!text.trim() && !file}
+                        onClick={handleSubmitPost}
+                    >
+                        Tweet
+                    </button>
                 </div>
             </div>
         </div >
