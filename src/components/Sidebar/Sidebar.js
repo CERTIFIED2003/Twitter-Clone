@@ -41,7 +41,7 @@ export default function Sidebar() {
       </button>
       <div className="text-[#d9d9d9] flex items-center justify-center mt-auto cursor-pointer xl:ml-auto xl:-mr-5">
         <img
-          src="https://assets.stickpng.com/images/5847f9cbcef1014c0b5e48c8.png"
+          src="https://tclone.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FtwitterLogo.a7720ee1.png&w=64&q=75"
           alt="Profile"
           className="h-5 w-5 md:h-8 md:w-8 rounded-full xl:mr-2.5"
         />
