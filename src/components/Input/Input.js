@@ -6,6 +6,7 @@ export default function Input() {
     const [text, setText] = useState("");
     const [file, setFile] = useState(null);
     const [showEmojis, setShowEmojis] = useState(false);
+    const [loading, setLoading] = useState(false);
     const fileRef = useRef(null);
 
     const addImageToPost = () => {
@@ -21,7 +22,10 @@ export default function Input() {
     };
 
     const handleSubmitPost = () => {
+        if (loading) return;
+        setLoading(true);
 
+        
     };
 
     return (
