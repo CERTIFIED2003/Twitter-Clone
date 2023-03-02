@@ -1,12 +1,15 @@
 ## Project still in development mode. Have a look of my codes!
 ### Live Preview [here](https://tclone.vercel.app)
 
-### Create a .env file in the repo's root directory and provide your own Firebase config variables
+### Create a .env file in the repo's root directory and add this variables with your own keys
 ```
+NEXT_PUBLIC_GOOGLE_CLIENT_ID = YOUR GOOGLE AUTH WEB CLIENT ID
+NEXT_PUBLIC_GOOGLE_CLIENT_SECRET = YOUR GOOGLE AUTH WEB CLIENT SECRET
 NEXT_PUBLIC_API_KEY= YOUR FIREBASE API KEY
 NEXT_PUBLIC_AUTH_DOMAIN= YOUR FIREBASE AUTH DOMAIN KEY
 NEXT_PUBLIC_PROJECT_ID= YOUR FIREBASE PROJECT ID
 NEXT_PUBLIC_STORAGE= YOUR FIREBASE STORAGE BUCKET KEY
 NEXT_PUBLIC_SENDER= YOUR FIREBASE SENDER ID
 NEXT_PUBLIC_APP_ID= YOUR FIREBASE APP ID
+NEXTAUTH_URL = USE THIS WHEN U ARE DEPLOYING YOUR SITE (ADD YOUR PROJECT's LIVE URL)
 ```
