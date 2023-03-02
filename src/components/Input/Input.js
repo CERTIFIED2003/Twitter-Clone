@@ -4,7 +4,7 @@ import Picker from "emoji-picker-react";
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { database, storage } from "@/firebase/firebase";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Input() {
     const [text, setText] = useState("");
@@ -72,9 +72,10 @@ export default function Input() {
     return (
         <div className={`border-b border-gray-700 p-3 flex space-x-3 overflow-y-scroll ${loading && "opacity-60"}`} style={{ overflow: "hidden" }}>
             <img
-                src={session.user.image || "https://tclone.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FtwitterLogo.a7720ee1.png&w=64&q=75"}
+                src={session.user.image}
                 alt="Profile"
                 className="h-10 w-10 rounded-full cursor-pointer object-contain"
+                onClick={() => signOut()}
             />
             <div className="w-full divide-y divide-gray-700">
                 <div className={`${file && "pb-7"} ${text && "space-y-2.5"}`}>
