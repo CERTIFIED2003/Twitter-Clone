@@ -72,7 +72,7 @@ export default function Input() {
     return (
         <div className={`border-b border-gray-700 p-3 flex space-x-3 overflow-y-scroll ${loading && "opacity-60"}`} style={{ overflow: "hidden" }}>
             <img
-                src={session.user.image}
+                src={session.user.image || "https://tclone.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FtwitterLogo.a7720ee1.png&w=64&q=75"}
                 alt="Profile"
                 className="h-10 w-10 rounded-full cursor-pointer object-contain"
             />

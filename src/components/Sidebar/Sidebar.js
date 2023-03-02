@@ -12,7 +12,7 @@ import {
   EllipsisHorizontalIcon
 } from '@heroicons/react/24/outline'
 import SidebarLink from "./SidebarLink";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 
 export default function Sidebar() {
@@ -42,9 +42,11 @@ export default function Sidebar() {
       <button className="hidden xl:inline ml-auto bg-[#1DA1F2] text-white rounded-full w-56 h-[52px] text-lg font-bold hover:bg-white hover:text-[#1DA1F2] transition-all duration-300 ease-out">
         Tweet
       </button>
-      <div className="text-[#d9d9d9] flex items-center justify-center mt-auto cursor-pointer xl:ml-auto xl:-mr-5">
+      <div className="text-[#d9d9d9] flex items-center justify-center mt-auto cursor-pointer xl:ml-auto xl:-mr-5"
+        onClick={() => { signOut() }}
+      >
         <img
-          src={session.user.image}
+          src={session.user.image || "https://tclone.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FtwitterLogo.a7720ee1.png&w=64&q=75"}
           alt="Profile"
           className="h-5 w-5 md:h-8 md:w-8 rounded-full xl:mr-2.5 object-contain"
         />
