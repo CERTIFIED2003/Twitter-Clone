@@ -12,9 +12,12 @@ import {
   EllipsisHorizontalIcon
 } from '@heroicons/react/24/outline'
 import SidebarLink from "./SidebarLink";
+import { useSession } from "next-auth/react";
 
 
 export default function Sidebar() {
+  const { data: session } = useSession();
+
   return (
     // <div className="hidden sm:flex flex-col items-center xl:items-start xl:w-[340px] p-2 fixed h-full">
     <div className="flex flex-col items-center w-[40px] md:w-auto xl:items-start xl:w-[340px] p-2 fixed h-full">
@@ -41,13 +44,13 @@ export default function Sidebar() {
       </button>
       <div className="text-[#d9d9d9] flex items-center justify-center mt-auto cursor-pointer xl:ml-auto xl:-mr-5">
         <img
-          src="https://tclone.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FtwitterLogo.a7720ee1.png&w=64&q=75"
+          src={session.user.image}
           alt="Profile"
           className="h-5 w-5 md:h-8 md:w-8 rounded-full xl:mr-2.5 object-contain"
         />
         <div className="hidden xl:inline leading-5">
-          <h4 className="font-bold text-ellipsis">Shubham Lal</h4>
-          <p className="text-[#6e767d]">@shubham</p>
+          <h4 className="font-bold text-ellipsis">{session.user.name}</h4>
+          <p className="text-[#6e767d]">{`@${session.user.tag}`}</p>
         </div>
         <EllipsisHorizontalIcon className="h-5 hidden xl:inline ml-10" />
       </div>

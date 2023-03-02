@@ -3,8 +3,8 @@ import { useRef, useState } from "react";
 import Picker from "emoji-picker-react";
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { database, storage } from "@/firebase/firebase";
-import { useSession } from "next-auth/react";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { useSession } from "next-auth/react";
 
 export default function Input() {
     const [text, setText] = useState("");
@@ -12,7 +12,7 @@ export default function Input() {
     const [showEmojis, setShowEmojis] = useState(false);
     const [loading, setLoading] = useState(false);
     const fileRef = useRef(null);
-    // const { data: session } = useSession();
+    const { data: session } = useSession();
 
     const addImageToPost = (e) => {
         const reader = new FileReader();
@@ -72,7 +72,7 @@ export default function Input() {
     return (
         <div className={`border-b border-gray-700 p-3 flex space-x-3 overflow-y-scroll ${loading && "opacity-60"}`} style={{ overflow: "hidden" }}>
             <img
-                src="https://tclone.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FtwitterLogo.a7720ee1.png&w=64&q=75"
+                src={session.user.image}
                 alt="Profile"
                 className="h-10 w-10 rounded-full cursor-pointer object-contain"
             />
