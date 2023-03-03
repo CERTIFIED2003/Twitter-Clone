@@ -38,10 +38,10 @@ export default function Input() {
             const docRef = await addDoc(
                 collection(database, "posts"),
                 {
-                    // id: session.user.uid,
-                    // username: session.user.name,
-                    // userImg: session.user.image,
-                    // tag: session.user.tag,
+                    id: session.user.uid,
+                    username: session.user.name,
+                    userImg: session.user.image,
+                    tag: session.user.tag,
                     text: text,
                     timestamp: serverTimestamp(),
                 }
