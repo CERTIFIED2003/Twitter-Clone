@@ -25,7 +25,7 @@ export default function Post({ id, post, postPage }) {
     const [comments, setComments] = useState([]);
 
     return (
-        <div className="p-3 flex cursor-pointer border-b border-gray-700">
+        <div className="p-3 flex cursor-pointer border-b border-gray-700" onClick={() => router.push(`/${id}`)}>
             {!postPage && (
                 <img src={post?.userImg} className="h-8 w-8 md:h-11 md:w-11 rounded-full mr-1 md:mr-4" alt="Profile Photo" />
             )}
@@ -127,7 +127,9 @@ export default function Post({ id, post, postPage }) {
                         </div>
                     )}
 
-                    {/* <div className="icon group">
+                    {/* <div className="icon group" onClick={(e) => {
+                            e.stopPropagation();
+                        }}>
                         <ShareIcon className="h-5 group-hover:text-[#1d9bf0]" />
                     </div>
 

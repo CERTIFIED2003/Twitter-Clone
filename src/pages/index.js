@@ -7,7 +7,8 @@ import { useState } from "react";
 
 export default function Home({ providers, trendingResults, followResults }) {
   const { data: session } = useSession();
-  const [showSide, setShowSide] = useState(false);
+  const [showSide, setShowSide] = useState(false);  
+  // console.log(trendingResults.articles)
 
   if (!session) return (
     <>
@@ -29,12 +30,12 @@ export default function Home({ providers, trendingResults, followResults }) {
 }
 
 export async function getServerSideProps(context) {
-  // const trendingResults = await fetch("https://www.jsonkeeper.com/b/NKEV").then(
-  //   (res) => res.json()
-  // );
-  // const followResults = await fetch("https://www.jsonkeeper.com/b/WWMJ").then(
-  //   (res) => res.json()
-  // );
+  const trendingResults = await fetch(`https://newsapi.org/v2/everything?q=keyword&apiKey=${process.env.NEXT_PUBLIC_NEWS_API}`).then(
+    (res) => res.json()
+  );
+  const followResults = await fetch("https://www.jsonkeeper.com/b/WWMJ").then(
+    (res) => res.json()
+  );
   const providers = await getProviders();
   const session = await getSession(context);
 
@@ -42,8 +43,8 @@ export async function getServerSideProps(context) {
     props: {
       providers,
       session,
-      // trendingResults,
-      // followResults
+      trendingResults,
+      followResults
     },
   };
 }
