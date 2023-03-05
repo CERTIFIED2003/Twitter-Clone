@@ -4,11 +4,14 @@ import SEO from "../SEO/SEO";
 import { getProviders, getSession, useSession } from "next-auth/react";
 import Login from "@/components/Login/Login";
 import { useState } from "react";
+import Modal from "@/modals/Modal";
+import { useRecoilState } from "recoil";
+import { modalState } from "@/atoms/modalAtom";
 
 export default function Home({ providers, trendingResults, followResults }) {
   const { data: session } = useSession();
-  const [showSide, setShowSide] = useState(false);  
-  // console.log(trendingResults.articles)
+  const [showSide, setShowSide] = useState(false);
+  const [isOpen, setIsOpen] = useRecoilState(modalState);
 
   if (!session) return (
     <>
@@ -22,8 +25,10 @@ export default function Home({ providers, trendingResults, followResults }) {
       <SEO />
 
       <main className="bg-black min-h-screen flex max-w-[1500px] mx-auto">
-        <Sidebar showSide={showSide}/>
-        <Feeds showSide={showSide} setShowSide={setShowSide}/>
+        <Sidebar showSide={showSide} />
+        <Feeds showSide={showSide} setShowSide={setShowSide} />
+
+        {isOpen && <Modal />}
       </main>
     </>
   )

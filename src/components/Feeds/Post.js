@@ -5,6 +5,7 @@ import {
     TrashIcon,
     HeartIcon as HeartOutline,
     ShareIcon,
+    ChartBarIcon,
     // ChartBarIcon
 } from "@heroicons/react/24/outline"
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
@@ -14,7 +15,7 @@ import { collection, deleteDoc, doc, onSnapshot, setDoc } from "firebase/firesto
 import { database } from "@/firebase/firebase";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
-import { modalState, postIdState } from "@/atoms/modalAtom";
+import { commentState, likeState, modalState, postIdState } from "@/atoms/modalAtom";
 import { RWebShare } from "react-web-share";
 
 
@@ -24,6 +25,8 @@ export default function Post({ id, post, postPage }) {
     const [likes, setLikes] = useState([]);
     const router = useRouter();
     const [isOpen, setIsOpen] = useRecoilState(modalState);
+    const [commentOpen, setCommentOpen] = useRecoilState(commentState);
+    const [likeOpen, setLikeOpen] = useRecoilState(likeState);
     const [postId, setPostId] = useRecoilState(postIdState);
     const [comments, setComments] = useState([]);
 
@@ -122,6 +125,8 @@ export default function Post({ id, post, postPage }) {
                             e.stopPropagation();
                             setPostId(id);
                             setIsOpen(true);
+                            setCommentOpen(true);
+                            setLikeOpen(false);
                         }}
                     >
                         <div className="icon group-hover:bg-[#FFFF00] group-hover:bg-opacity-10">
@@ -164,9 +169,17 @@ export default function Post({ id, post, postPage }) {
                         </RWebShare>
                     </div>
 
-                    {/*<div className="icon group">
+                    <div className="icon group"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setPostId(id);
+                            setIsOpen(true);
+                            setLikeOpen(true);
+                            setCommentOpen(false);
+                        }}
+                    >
                         <ChartBarIcon className="h-5 group-hover:text-[#1d9bf0]" />
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </div >
