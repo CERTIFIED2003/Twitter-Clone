@@ -47,6 +47,7 @@ export default function Post({ id, post, postPage }) {
                 await setDoc(doc(database, "posts", id, "likes", session.user.uid), {
                     userName: session.user.name,
                     userImg: session.user.image,
+                    userTag: session.user.tag,
                 });
             }
         }

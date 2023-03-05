@@ -1,8 +1,6 @@
-import { commentState, likeState, modalState, postIdState } from "@/atoms/modalAtom";
-import { database } from "@/firebase/firebase";
+import { commentState, likeState, modalState } from "@/atoms/modalAtom";
 import { Dialog, Transition } from "@headlessui/react";
-import { doc, onSnapshot } from "firebase/firestore";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import { useRecoilState } from "recoil";
 import CommentStruct from "./CommentStruct";
 import LikeStruct from "./LikeStruct";
@@ -12,12 +10,6 @@ export default function CommentModal() {
     const [isOpen, setIsOpen] = useRecoilState(modalState);
     const [commentOpen, setCommentOpen] = useRecoilState(commentState);
     const [likeOpen, setLikeOpen] = useRecoilState(likeState);
-    const [post, setPost] = useState();
-    const [postId, setPostId] = useRecoilState(postIdState);
-
-    useEffect(() => {
-        onSnapshot(doc(database, "posts", postId), (snapshot) => setPost(snapshot.data()));
-    }, [database]);
 
     return (
         <Transition.Root show={isOpen} as={Fragment}>
@@ -48,9 +40,11 @@ export default function CommentModal() {
                             {commentOpen && <CommentStruct
                                 setCommentOpen={setCommentOpen}
                                 setIsOpen={setIsOpen}
-                                post={post}
                             />}
-                            {likeOpen && <LikeStruct setLikeOpen={setLikeOpen} setIsOpen={setIsOpen} />}
+                            {likeOpen && <LikeStruct
+                                setLikeOpen={setLikeOpen}
+                                setIsOpen={setIsOpen}
+                            />}
                         </div>
                     </Transition.Child>
                 </div>
