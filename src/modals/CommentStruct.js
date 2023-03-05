@@ -78,7 +78,7 @@ export default function CommentStruct({ setCommentOpen, setIsOpen }) {
                 >
                     <XMarkIcon className="h-[22px] text-white" />
                 </div>
-                <span className="text-[#d9d9d9]">Tweet</span>
+                <span className="text-[#d9d9d9]">Reply</span>
             </div>
             <div className="flex px-4 pt-5 pb-2.5 sm:px-6">
                 <div className="w-full">
@@ -110,7 +110,7 @@ export default function CommentStruct({ setCommentOpen, setIsOpen }) {
                                 value={comment}
                                 onChange={(e) => setComment(e.target.value)}
                                 placeholder="Tweet your reply"
-                                rows="2"
+                                rows={1}
                                 className="bg-transparent outline-none text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[80px]"
                             />
                             {file && (

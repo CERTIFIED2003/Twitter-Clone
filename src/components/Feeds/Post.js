@@ -62,7 +62,7 @@ export default function Post({ id, post, postPage }) {
     };
 
     return (
-        <div className="p-3 flex cursor-pointer border-b border-gray-700" onClick={() => router.push(`/${id}`)}>
+        <div className={`${!postPage && "cursor-pointer"} p-3 flex border-b border-gray-700`} onClick={() => !postPage && router.push(`/${id}`)}>
             {!postPage && (
                 <img src={post?.userImg} className="h-8 w-8 md:h-11 md:w-11 rounded-full mr-1 md:mr-4" alt="Profile Photo" />
             )}
@@ -135,11 +135,11 @@ export default function Post({ id, post, postPage }) {
                             setLikeOpen(false);
                         }}
                     >
-                        <div className="icon group-hover:bg-[#FFFF00] group-hover:bg-opacity-10">
-                            <ChatBubbleBottomCenterTextIcon className="h-5 group-hover:text-[#FFFF00]" />
+                        <div className="icon group-hover:bg-[#E49B0F] group-hover:bg-opacity-10">
+                            <ChatBubbleBottomCenterTextIcon className="h-5 group-hover:text-[#E49B0F]" />
                         </div>
                         {comments.length > 0 && (
-                            <span className="group-hover:text-[#FFFF00] text-sm">
+                            <span className="group-hover:text-[#E49B0F] text-sm">
                                 {comments.length}
                             </span>
                         )}
@@ -184,7 +184,7 @@ export default function Post({ id, post, postPage }) {
                             setCommentOpen(false);
                         }}
                     >
-                        <ChartBarIcon className="h-5 group-hover:text-[#1d9bf0]" />
+                        <ChartBarIcon className="h-5 group-hover:text-green-500" />
                     </div>
                 </div>
             </div>
