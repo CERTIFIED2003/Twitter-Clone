@@ -1,4 +1,5 @@
-import { XMarkIcon, PhotoIcon } from '@heroicons/react/24/solid'
+import { XMarkIcon } from '@heroicons/react/24/solid';
+import { PhotoIcon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import Moment from 'react-moment';
 import { addDoc, collection, doc, onSnapshot, serverTimestamp, updateDoc } from "firebase/firestore";

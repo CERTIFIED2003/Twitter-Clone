@@ -11,7 +11,7 @@ import {
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { collection, deleteDoc, doc, onSnapshot, setDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc } from "firebase/firestore";
 import { database } from "@/firebase/firebase";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
@@ -30,7 +30,6 @@ export default function Post({ id, post, postPage }) {
     const [postId, setPostId] = useRecoilState(postIdState);
     const [comments, setComments] = useState([]);
 
-
     useEffect(() => {
         onSnapshot(collection(database, "posts", id, "likes"), (snapshot) => setLikes(snapshot.docs))
     }, [database, id]);
@@ -38,6 +37,12 @@ export default function Post({ id, post, postPage }) {
     useEffect(() => {
         setLiked(likes.findIndex((like) => like.id === session?.user?.uid) !== -1);
     }, [likes]);
+
+    useEffect(() => {
+        onSnapshot(
+            query(collection(database, "posts", id, "comments"), orderBy("timestamp", "desc")), (snapshot) => setComments(snapshot.docs)
+        )
+    }, [database, id]);
 
     const likePost = async () => {
         try {
