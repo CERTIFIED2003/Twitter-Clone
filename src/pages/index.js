@@ -12,10 +12,10 @@ export default function Home({ providers, trendingResults, followResults }) {
   const { data: session } = useSession();
   const [showSide, setShowSide] = useState(false);
   const [isOpen, setIsOpen] = useRecoilState(modalState);
-
+  
   if (!session) return (
     <>
-      <SEO login={true} />
+      <SEO login />
       <Login providers={providers} />
     </>
   )
