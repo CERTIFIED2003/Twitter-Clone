@@ -1,4 +1,4 @@
-import { XMarkIcon, PhotoIcon, ChartBarIcon, CalendarIcon, FaceSmileIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon, PhotoIcon, FaceSmileIcon } from "@heroicons/react/24/outline";
 import { useRef, useState } from "react";
 import Picker from "emoji-picker-react";
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
@@ -111,16 +111,9 @@ export default function Input() {
                                 <PhotoIcon className="h-[22px] text-[#1d9bf0]" />
                                 <input type="file" hidden onChange={addImageToPost} ref={fileRef} />
                             </div>
-                            <div className="icon rotate-90">
-                                <ChartBarIcon className="text-[#1d9bf0] h-[22px]" />
-                            </div>
 
                             <div className="icon" onClick={() => setShowEmojis(prev => !prev)}>
                                 <FaceSmileIcon className="text-[#1d9bf0] h-[22px]" />
-                            </div>
-
-                            <div className="icon">
-                                <CalendarIcon className="text-[#1d9bf0] h-[22px]" />
                             </div>
 
                             {showEmojis && (

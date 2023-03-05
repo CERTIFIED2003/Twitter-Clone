@@ -20,7 +20,7 @@ export default function Sidebar({ showSide }) {
 
   return (
     // <div className="hidden sm:flex flex-col items-center xl:items-start xl:w-[340px] p-2 fixed h-full">
-    <div className={`${showSide ? "flex" : "hidden"} flex-col items-center w-[40px] md:w-auto xl:items-start xl:w-[340px] p-2 fixed h-full`}>
+    <div className={`${showSide ? "flex" : "hidden"} md:flex flex-col items-center w-[40px] md:w-auto xl:items-start xl:w-[340px] p-2 fixed h-full`}>
       <div className="flex items-center justify-center w-8 md:w-14 h-14 p-0 xl:ml-24 md:hoverAnimation">
         <Image
           src={TwitterLogo}

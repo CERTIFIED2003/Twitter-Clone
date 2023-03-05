@@ -3,26 +3,54 @@ import {
     EllipsisHorizontalIcon,
     ChatBubbleBottomCenterTextIcon,
     TrashIcon,
-    HeartIcon,
+    HeartIcon as HeartOutline,
     ShareIcon,
-    ChartBarIcon
+    // ChartBarIcon
 } from "@heroicons/react/24/outline"
+import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
-import { deleteDoc, doc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { collection, deleteDoc, doc, onSnapshot, setDoc } from "firebase/firestore";
 import { database } from "@/firebase/firebase";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import { modalState, postIdState } from "@/atoms/modalAtom";
+import { RWebShare } from "react-web-share";
 
 
 export default function Post({ id, post, postPage }) {
     const { data: session } = useSession();
-    const [liked, setLiked] = useState();
+    const [liked, setLiked] = useState(false);
+    const [likes, setLikes] = useState([]);
     const router = useRouter();
     const [isOpen, setIsOpen] = useRecoilState(modalState);
     const [postId, setPostId] = useRecoilState(postIdState);
     const [comments, setComments] = useState([]);
+
+
+    useEffect(() => {
+        onSnapshot(collection(database, "posts", id, "likes"), (snapshot) => setLikes(snapshot.docs))
+    }, [database, id]);
+
+    useEffect(() => {
+        setLiked(likes.findIndex((like) => like.id === session?.user?.uid) !== -1);
+    }, [likes]);
+
+    const likePost = async () => {
+        try {
+            if (liked) {
+                await deleteDoc(doc(database, "posts", id, "likes", session.user.uid));
+            } else {
+                await setDoc(doc(database, "posts", id, "likes", session.user.uid), {
+                    userName: session.user.name,
+                    userImg: session.user.image,
+                });
+            }
+        }
+        catch (error) {
+            error.message;
+        }
+    };
 
     return (
         <div className="p-3 flex cursor-pointer border-b border-gray-700" onClick={() => router.push(`/${id}`)}>
@@ -68,24 +96,24 @@ export default function Post({ id, post, postPage }) {
                         className="flex items-center space-x-1 group"
                         onClick={(e) => {
                             e.stopPropagation();
-                            // likePost();
+                            likePost();
                         }}
                     >
                         <div className="icon group-hover:bg-pink-600/10">
                             {liked ? (
-                                <HeartIconFilled className="h-5 text-pink-600" />
+                                <HeartSolid className="h-5 text-pink-600" />
                             ) : (
-                                <HeartIcon className="h-5 group-hover:text-pink-600" />
+                                <HeartOutline className="h-5 group-hover:text-pink-600" />
                             )}
                         </div>
-                        {/* {likes.length > 0 && (
+                        {likes.length > 0 && (
                             <span
                                 className={`group-hover:text-pink-600 text-sm ${liked && "text-pink-600"
                                     }`}
                             >
                                 {likes.length}
                             </span>
-                        )} */}
+                        )}
                     </div>
 
                     <div
@@ -106,7 +134,7 @@ export default function Post({ id, post, postPage }) {
                         )}
                     </div>
 
-                    {session.user.uid === post?.id ? (
+                    {session.user.uid === post?.id && (
                         <div
                             className="flex items-center space-x-1 group"
                             onClick={(e) => {
@@ -119,25 +147,28 @@ export default function Post({ id, post, postPage }) {
                                 <TrashIcon className="h-5 group-hover:text-red-600" />
                             </div>
                         </div>
-                    ) : (
-                        <div className="flex items-center space-x-1 group">
-                            <div className="icon group-hover:bg-green-500/10">
-                                <SwitchHorizontalIcon className="h-5 group-hover:text-green-500" />
-                            </div>
-                        </div>
                     )}
 
-                    {/* <div className="icon group" onClick={(e) => {
-                            e.stopPropagation();
-                        }}>
-                        <ShareIcon className="h-5 group-hover:text-[#1d9bf0]" />
+                    <div className="icon group" onClick={(e) => {
+                        e.stopPropagation();
+                    }}>
+                        <RWebShare
+                            data={{
+                                text: `${post?.text}`,
+                                url: `https://tclone.vercel.app/${id}`,
+                                title: `Share this post from ${post?.username}`
+                            }}
+                            onClick={() => console.log('Share Post')}
+                        >
+                            <ShareIcon className="h-5 group-hover:text-[#1d9bf0]" />
+                        </RWebShare>
                     </div>
 
-                    <div className="icon group">
+                    {/*<div className="icon group">
                         <ChartBarIcon className="h-5 group-hover:text-[#1d9bf0]" />
                     </div> */}
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
