@@ -9,7 +9,7 @@ import { useRecoilState } from "recoil";
 import { modalState } from "@/atoms/modalAtom";
 import Widgets from "@/components/Widgets/Widgets";
 
-export default function Home({ providers, trendingResults }) {
+export default function Home({ providers, trendingResults, followResults }) {
   const { data: session } = useSession();
   const [showSide, setShowSide] = useState(false);
   const [isOpen, setIsOpen] = useRecoilState(modalState);
@@ -28,7 +28,7 @@ export default function Home({ providers, trendingResults }) {
       <main className="bg-black min-h-screen flex max-w-[1500px] mx-auto">
         <Sidebar showSide={showSide} />
         <Feeds showSide={showSide} setShowSide={setShowSide} />
-        <Widgets trendingResults={trendingResults} />
+        <Widgets followResults={followResults} trendingResults={trendingResults} />
 
         {isOpen && <Modal />}
       </main>
@@ -37,6 +37,10 @@ export default function Home({ providers, trendingResults }) {
 }
 
 export async function getServerSideProps(context) {
+  const followResults = await fetch("https://www.jsonkeeper.com/b/WWMJ")
+    .then(
+      (res) => res.json()
+    );
   const trendingResults = await fetch(`https://newsapi.org/v2/everything?q=keyword&apiKey=${process.env.NEXT_PUBLIC_NEWS_API}`)
     .then(
       (res) => res.json()
@@ -48,6 +52,7 @@ export async function getServerSideProps(context) {
     props: {
       providers,
       session,
+      followResults,
       trendingResults
     },
   };

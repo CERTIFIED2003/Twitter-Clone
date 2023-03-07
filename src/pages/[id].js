@@ -16,7 +16,7 @@ import Comment from "@/components/Comment/Comment";
 import Widgets from "@/components/Widgets/Widgets";
 
 
-export default function PostPage({ providers, trendingResults }) {
+export default function PostPage({ providers, followResults, trendingResults }) {
     const { data: session } = useSession();
     const [showSide, setShowSide] = useState(false);
     const [isOpen, setIsOpen] = useRecoilState(modalState);
@@ -84,7 +84,7 @@ export default function PostPage({ providers, trendingResults }) {
                     )}
                 </div>
 
-                <Widgets trendingResults={trendingResults} />
+                <Widgets followResults={followResults} trendingResults={trendingResults} />
 
                 {isOpen && <Modal />}
             </main>
@@ -93,6 +93,10 @@ export default function PostPage({ providers, trendingResults }) {
 }
 
 export async function getServerSideProps() {
+    const followResults = await fetch("https://jsonkeeper.com/b/WWMJ")
+        .then(
+            (res) => res.json()
+        );
     const trendingResults = await fetch(`https://newsapi.org/v2/everything?q=keyword&apiKey=${process.env.NEXT_PUBLIC_NEWS_API}`)
         .then(
             (res) => res.json()
@@ -101,6 +105,7 @@ export async function getServerSideProps() {
     return {
         props: {
             providers,
+            followResults,
             trendingResults
         },
     };
