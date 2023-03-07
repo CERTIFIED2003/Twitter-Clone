@@ -13,9 +13,10 @@ import NoPage from "./404";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import Post from "@/components/Feeds/Post";
 import Comment from "@/components/Comment/Comment";
+import Widgets from "@/components/Widgets/Widgets";
 
 
-export default function PostPage({ providers, trendingResults, followResults }) {
+export default function PostPage({ providers, trendingResults }) {
     const { data: session } = useSession();
     const [showSide, setShowSide] = useState(false);
     const [isOpen, setIsOpen] = useRecoilState(modalState);
@@ -83,6 +84,8 @@ export default function PostPage({ providers, trendingResults, followResults }) 
                     )}
                 </div>
 
+                <Widgets trendingResults={trendingResults} />
+
                 {isOpen && <Modal />}
             </main>
         </>
@@ -90,18 +93,15 @@ export default function PostPage({ providers, trendingResults, followResults }) 
 }
 
 export async function getServerSideProps() {
-    const trendingResults = await fetch(`https://newsapi.org/v2/everything?q=keyword&apiKey=${process.env.NEXT_PUBLIC_NEWS_API}`).then(
-        (res) => res.json()
-    );
-    const followResults = await fetch("https://www.jsonkeeper.com/b/WWMJ").then(
-        (res) => res.json()
-    );
+    const trendingResults = await fetch(`https://newsapi.org/v2/everything?q=keyword&apiKey=${process.env.NEXT_PUBLIC_NEWS_API}`)
+        .then(
+            (res) => res.json()
+        );
     const providers = await getProviders();
     return {
         props: {
             providers,
-            trendingResults,
-            followResults
+            trendingResults
         },
     };
 }
