@@ -14,3 +14,21 @@ NEXT_PUBLIC_APP_ID= YOUR FIREBASE APP ID
 NEXT_PUBLIC_NEWS_API= YOUR NEWSAPI KEY
 NEXT_PUBLIC_NEXTAUTH_URL = USE THIS WHEN U ARE DEPLOYING YOUR SITE (ADD YOUR PROJECT's LIVE URL)
 ```
+
+## Some snaps of the Application
+### Home Page
+<img 
+  src="https://user-images.githubusercontent.com/111045472/223365828-7788178d-da82-4f12-9d1f-bb07f1629f89.png"
+/>
+
+### Post's Page
+<img 
+  src="https://user-images.githubusercontent.com/111045472/223368173-1c288154-d8b8-4370-9c65-ae1c900dfb01.png"
+/>
+
+### Commenting on a Post
+<img 
+  src="https://user-images.githubusercontent.com/111045472/223368714-1641e8af-8f44-4ed6-bb63-ce3c31dc4d0a.png"
+/>
+
+### and more...!
