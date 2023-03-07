@@ -1,4 +1,4 @@
-## Project still in development mode. Have a look of my codes!
+## Hola!
 ### Live Preview [here](https://tclone.vercel.app)
 
 ### Create a .env file in the repo's root directory and add this variables with your own keys
