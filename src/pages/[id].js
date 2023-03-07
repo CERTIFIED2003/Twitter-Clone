@@ -93,7 +93,7 @@ export default function PostPage({ providers, followResults, trendingResults }) 
 }
 
 export async function getServerSideProps() {
-    const followResults = await fetch("https://jsonkeeper.com/b/WWMJ")
+    const followResults = await fetch("https://www.jsonkeeper.com/b/WWMJ")
         .then(
             (res) => res.json()
         );
